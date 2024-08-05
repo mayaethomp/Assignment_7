@@ -19,10 +19,9 @@ Use a boolean to determine if user's drink selection is in stock
 If user's drink selection is not in stock, display "Out of Stock" to the user and re-prompt the menu
 If user's drink selection is in stock, subtract 1 from the drink's inventory and ask the user how much they want to spend
 Use a function to prompt the user how much money they want to spend, validate that input and return their input
-Use a switch statement to determine if user has sufficient funds for drink selection and displays their change
-
-
-
+Use a switch statement to determine if user has sufficient funds for drink selection
+If user has sufficient funds for chosen drink selection, add cost of drink to total revenue and display their change, else display "Insufficient funds"
+When the user selects 6, display the total revenue the machine has earned and the inventory quantity of each drink remaining, and end program
 */
 
 
@@ -59,7 +58,7 @@ float userFunds();
 int main() {
 
     int menu;
-    float totalRevenue = 0;
+    float totalRevenue = 0; // total revenue earned by machine
 
     do {
         // Function to display a menu for the user to input a choice, validate that choice, and return the user's choice and set return value to menu
@@ -81,40 +80,40 @@ int main() {
                     drinkInStock = false;
                 } else {
                     colaQty.Qty -= 1;
-                    break;
                 }
+                break;                
             case 2:
                 if (rootBeerQty.Qty <= 0) {
                     cout << "SOLD OUT" << endl << endl;
                     drinkInStock = false;
                 } else {
                     rootBeerQty.Qty -= 1;
-                    break;
-                }     
+                }
+                break;     
             case 3:
                 if (grapeSodaQty.Qty <= 0) {
                     cout << "SOLD OUT" << endl << endl;
                     drinkInStock = false;
                 } else {
                     grapeSodaQty.Qty -= 1;
-                    break;
                 }
+                break; 
             case 4: 
                 if (lemonLimeQty.Qty <= 0) {
                     cout << "SOLD OUT" << endl << endl;
                     drinkInStock = false;
                 } else {
                     lemonLimeQty.Qty -= 1;
-                    break;
                 }
+                break; 
             case 5:
                 if (waterQty.Qty <= 0) {
                     cout << "SOLD OUT" << endl << endl;
                     drinkInStock = false;
                 } else {
                     waterQty.Qty -= 1;
-                    break;
-                }          
+                }
+                break;           
         }
 
         // If user's drink selection is in stock
@@ -127,9 +126,9 @@ int main() {
             switch(menu) {
                 case 1:
                     if (money >= cola.cost) { 
-                            change = money - cola.cost;
-                            cout << setprecision(2) << "Change: $" << change << endl;
-                            totalRevenue += cola.cost;
+                            change = money - cola.cost; // calculate user's change
+                            cout << setprecision(2) << "Change: $" << change << endl; // display user's change
+                            totalRevenue += cola.cost;  // add cost to total revenue
                         } else {
                         cout << "Insufficient funds." << endl;
                         break;
@@ -199,17 +198,19 @@ int main() {
 // Function Definitions
 
 // ----- MENU DISPLAY ----- //
+
 int menuSelection()
 {
     int menu;
     while (true) {
-        cout << "1) Cola " << setw(10) << "$" << setprecision(2) << fixed << cola.cost << setw(15) << "Qty: " << colaQty.Qty << endl
-             << "2) Root Beer " << setw(5) << "$" << setprecision(2) << fixed << rootBeer.cost << setw(15) << "Qty: " << rootBeerQty.Qty << endl
-             << "3) Grape Soda " << setw(4) << "$" << setprecision(2) << fixed << grapeSoda.cost << setw(15) << "Qty: " << grapeSodaQty.Qty << endl
-             << "4) Lemon-Lime " << setw(4) << "$" << setprecision(2) << fixed << lemonLime.cost << setw(15) << "Qty: " << lemonLimeQty.Qty << endl
-             << "5) Water " << setw(9) << "$" << setprecision(2) << fixed << water.cost << setw(15) << "Qty: " << waterQty.Qty << endl << endl
+        cout << endl << "1) Cola " << setw(10) << "$" << setprecision(2) << fixed << cola.cost << setw(15) << "Qty: " << colaQty.Qty << endl
+                     <<  "2) Root Beer " << setw(5) << "$" << setprecision(2) << fixed << rootBeer.cost << setw(15) << "Qty: " << rootBeerQty.Qty << endl
+                     << "3) Grape Soda " << setw(4) << "$" << setprecision(2) << fixed << grapeSoda.cost << setw(15) << "Qty: " << grapeSodaQty.Qty << endl
+                     << "4) Lemon-Lime " << setw(4) << "$" << setprecision(2) << fixed << lemonLime.cost << setw(15) << "Qty: " << lemonLimeQty.Qty << endl
+                     << "5) Water " << setw(9) << "$" << setprecision(2) << fixed << water.cost << setw(15) << "Qty: " << waterQty.Qty << endl << endl
 
              << "Select a drink (1-5) or enter 6 to quit: ";
+
         cin >> menu;
         // To prevent infinite loop, if cin fails, clear input, ignore entire line until null
         if (cin.fail()) { 
@@ -220,18 +221,19 @@ int menuSelection()
         if (menu >= 1 && menu <= 6) {
             return menu;
         } else {
-            cout << "Invalid response entered. Please try again." << endl;
+            cout << "Invalid response entered. Please try again." << endl << endl;
         }
     }
 }
 
 
 // ----- USER FUNDS ----- // 
+
 float userFunds() 
 {
     float funds;
     while(true) {
-        cout << "Enter the amount of money you want to insert: " << endl;
+        cout << "Enter the amount of money you want to insert: ";
         cin >> funds;
 
         // To prevent infinite loop, if cin fails, clear input, ignore entire line until null
@@ -240,7 +242,7 @@ float userFunds()
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
             }
         
-        // Validate user response
+        // Validate user response by limiting inputs to > 0 and < 1
         if (funds < 0 || funds > 1.00) {
             cout << "This machine cannot accept values less than 0 or greater than $1.00." << endl;
         } else {
