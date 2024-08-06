@@ -73,46 +73,46 @@ int main() {
         // Default drink to be in stock
         bool drinkInStock = true;
 
-        // If user's drink selection is not in stock, display "Out of stock", else remove 1 from drink item's inventory count
+        // If user's drink selection is not in stock, display "Out of stock", else return true
         switch (menu) {
-            case 1:
+            case 1: // Cola
                 if (colaQty.Qty <= 0) {
-                    cout << "SOLD OUT" << endl << endl;
+                    cout << endl << "SOLD OUT" << endl << endl;
                     drinkInStock = false;
                 } else {
-                    colaQty.Qty -= 1;
+                    drinkInStock = true;
                 }
                 break;                
-            case 2:
+            case 2: // Root Beer
                 if (rootBeerQty.Qty <= 0) {
-                    cout << "SOLD OUT" << endl << endl;
+                    cout << endl << "SOLD OUT" << endl << endl;
                     drinkInStock = false;
                 } else {
-                    rootBeerQty.Qty -= 1;
+                    drinkInStock = true;
                 }
                 break;     
-            case 3:
+            case 3: // Grape Soda
                 if (grapeSodaQty.Qty <= 0) {
-                    cout << "SOLD OUT" << endl << endl;
+                    cout << endl << "SOLD OUT" << endl << endl;
                     drinkInStock = false;
                 } else {
-                    grapeSodaQty.Qty -= 1;
+                    drinkInStock = true;
                 }
                 break; 
-            case 4: 
+            case 4: // Lemon Lime
                 if (lemonLimeQty.Qty <= 0) {
-                    cout << "SOLD OUT" << endl << endl;
+                    cout << endl << "SOLD OUT" << endl << endl;
                     drinkInStock = false;
                 } else {
-                    lemonLimeQty.Qty -= 1;
+                    drinkInStock = true;
                 }
                 break; 
-            case 5:
+            case 5: // Water
                 if (waterQty.Qty <= 0) {
-                    cout << "SOLD OUT" << endl << endl;
+                    cout << endl << "SOLD OUT" << endl << endl;
                     drinkInStock = false;
                 } else {
-                    waterQty.Qty -= 1;
+                    drinkInStock = true;
                 }
                 break;           
         }
@@ -128,7 +128,8 @@ int main() {
                 case 1:
                     if (money >= cola.cost) { 
                             change = money - cola.cost; // calculate user's change
-                            cout << setprecision(2) << "Change: $" << change << endl; // display user's change
+                            cout << endl << setprecision(2) << "Change: $" << change << endl; // display user's change
+                            colaQty.Qty -= 1; // remove 1 drink from inventory                            
                             totalRevenue += cola.cost;  // add cost to total revenue
                         } else {
                         cout << "Insufficient funds." << endl;
@@ -138,8 +139,10 @@ int main() {
                 case 2:
                     if (money >= rootBeer.cost) { 
                             change = money - rootBeer.cost;
-                            cout << setprecision(2) << "Change: $" << change << endl;
+                            cout << endl << setprecision(2) << "Change: $" << change << endl;
+                            rootBeerQty.Qty -= 1;
                             totalRevenue += rootBeer.cost;
+
                         } else {
                         cout << "Insufficient funds." << endl;
                         break;
@@ -148,7 +151,8 @@ int main() {
                 case 3:
                     if (money >= grapeSoda.cost) { 
                             change = money - grapeSoda.cost;
-                            cout << setprecision(2) << "Change: $" << change << endl;
+                            cout << endl << setprecision(2) << "Change: $" << change << endl;
+                            grapeSodaQty.Qty -= 1;
                             totalRevenue += grapeSoda.cost;
                         } else {
                         cout << "Insufficient funds." << endl;
@@ -158,7 +162,8 @@ int main() {
                 case 4:
                     if (money >= lemonLime.cost) { 
                             change = money - lemonLime.cost;
-                            cout << setprecision(2) << "Change: $" << change << endl;
+                            cout << endl << setprecision(2) << "Change: $" << change << endl;
+                            lemonLimeQty.Qty -= 1;                            
                             totalRevenue += lemonLime.cost;
                         } else {
                         cout << "Insufficient funds." << endl;
@@ -168,7 +173,8 @@ int main() {
                 case 5:
                     if (money >= water.cost) { 
                             change = money - water.cost;
-                            cout << setprecision(2) << "Change: $" << change << endl;
+                            cout << endl << setprecision(2) << "Change: $" << change << endl;
+                            waterQty.Qty -= 1;
                             totalRevenue += water.cost;
                         } else {
                         cout << "Insufficient funds." << endl;
