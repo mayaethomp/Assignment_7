@@ -18,7 +18,7 @@ Use a do/while loop to ensure the menu keeps displaying until the user inputs 6 
 Use a boolean to determine if user's drink selection is in stock
 If user's drink selection is not in stock, display "Out of Stock" to the user and re-prompt the menu
 If user's drink selection is in stock, subtract 1 from the drink's inventory and ask the user how much they want to spend
-Use a function to prompt the user how much money they want to spend, validate that input and return their input
+Use a function to prompt the user how much money they want to enter, validate that input and return their change
 Use a switch statement to determine if user has sufficient funds for drink selection
 If user has sufficient funds for chosen drink selection, add cost of drink to total revenue and display their change, else display "Insufficient funds"
 When the user selects 6, display the total revenue the machine has earned and the inventory quantity of each drink remaining, and end program
@@ -31,6 +31,7 @@ struct Drinks {
     const float cost;
 };
 
+// Practing struct, array would be easier for a single type
 struct Inventory {
     int Qty;
 };
@@ -51,8 +52,8 @@ struct Inventory {
     Inventory waterQty = {20};
 
 // Function prototypes
-int menuSelection();
-float userFunds();
+int menuSelection();     // Function to display a menu for the user to input a choice, validate that choice, and return the user's choice and set return value to menu
+float userFunds();       // Function to prompt the user how much money they want to spend, validate that input and return their input
 
 
 int main() {
@@ -61,7 +62,7 @@ int main() {
     float totalRevenue = 0; // total revenue earned by machine
 
     do {
-        // Function to display a menu for the user to input a choice, validate that choice, and return the user's choice and set return value to menu
+        // user's menu selection is set to menu variable
         menu = menuSelection();
 
         // If user selects 6, break loop and end program
@@ -118,7 +119,7 @@ int main() {
 
         // If user's drink selection is in stock
         if (drinkInStock) {
-            // Function to prompt the user how much money they want to spend, validate that input and return their input
+            // user's fund choice is set to money variable
             float money = userFunds();
             float change;
             
